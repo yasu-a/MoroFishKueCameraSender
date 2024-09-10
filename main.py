@@ -29,6 +29,8 @@ def print_credential_info():
 
 
 def main():
+    print_credential_info()
+    
     while True:
         logger.info("Session begin")
 
