@@ -9,23 +9,37 @@ OpenCVでカメラ画像を取得してDropboxにアップロードする。カ�
 # 動かし方
 
 1. Dropboxのアクセストークンを取得する。（参考：https://zerofromlight.com/blogs/detail/121/ ）
-2. 「環境変数の定義」に従って環境変数を定義する。
-3. [main.py](./main.py)があるディレクトリに`cd`する。
+2. [main.py](./main.py)があるディレクトリに`cd`する。
+3. 「設定の定義」に従って設定を定義する。
 4. [main.py](./main.py)を実行する。
 
-# 環境変数の定義
+# 設定の定義
 
-次の環境変数を定義する。
+手順2で移動したカレントディレクトリに「settings.json」というファイルを作り、次のフィールドを定義する。
 
-|                変数名                 |  型  |                    内容                     |         例         |
-|:----------------------------------:|:---:|:-----------------------------------------:|:-----------------:|
-|       `DROPBOX_ACCESS_TOKEN`       | 文字列 |             Dropboxのアクセストークン              |  （取得したアクセストークン）   |
-|     `CAPTURE_TMP_FOLDER_PATH`      | 文字列 |       カメラから取得した画像を一時的に保存するフォルダへのパス        | `./__capture_tmp` |
-|            `CAMERA_ID`             | 整数  | OpenCV（`cv2.VideoCapture`）がカメラを開くときのカメラ番号 |        `0`        |
-| `SESSION_CAPTURE_INTERVAL_SECONDS` | 小数  |         1回のセッション中でカメラ画像を取得する間隔（秒）         |       `0.5`       |
-|        `SESSION_N_CAPTURES`        | 整数  |          1回のセッション中でカメラ画像を取得する回数           |       `20`        |
-|     `INTERVAL_SESSION_SECONDS`     | 小数  |              セッションを繰り返す間隔（秒）              |       `300`       |
-|       `MAX_UPLOAD_SESSIONS`        | 整数  |            アップロードするセッション数の最大値             |      `1024`       |
+|                変数名                 |  型  |                    内容                     |          例          |
+|:----------------------------------:|:---:|:-----------------------------------------:|:-------------------:|
+|       `DROPBOX_ACCESS_TOKEN`       | 文字列 |             Dropboxのアクセストークン              |   （取得したアクセストークン）    |
+|     `CAPTURE_TMP_FOLDER_PATH`      | 文字列 |       カメラから取得した画像を一時的に保存するフォルダへのパス        | `"./__capture_tmp"` |
+|            `CAMERA_ID`             | 整数  | OpenCV（`cv2.VideoCapture`）がカメラを開くときのカメラ番号 |         `0`         |
+| `SESSION_CAPTURE_INTERVAL_SECONDS` | 小数  |         1回のセッション中でカメラ画像を取得する間隔（秒）         |        `0.5`        |
+|        `SESSION_N_CAPTURES`        | 整数  |          1回のセッション中でカメラ画像を取得する回数           |        `20`         |
+|     `INTERVAL_SESSION_SECONDS`     | 小数  |              セッションを繰り返す間隔（秒）              |        `300`        |
+|       `MAX_UPLOAD_SESSIONS`        | 整数  |            アップロードするセッション数の最大値             |       `1024`        |
+
+上記の「例」で示したフィールドを定義した「settings.json」はこんな感じ：
+
+```json
+{
+  "DROPBOX_ACCESS_TOKEN": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "CAPTURE_TMP_FOLDER_PATH": "./__capture_tmp",
+  "CAMERA_ID": 0,
+  "SESSION_CAPTURE_INTERVAL_SECONDS": 0.5,
+  "SESSION_N_CAPTURES": 20,
+  "INTERVAL_SESSION_SECONDS": 300,
+  "MAX_UPLOAD_SESSIONS": 1024
+}
+```
 
 上記の「例」の設定では、各セッションは300秒間隔で実行される。各セッションは0.5秒間隔で20枚のカメラ画像を取得する。各セッションはzipファイルとしてDropboxにアップロードされる。
 
